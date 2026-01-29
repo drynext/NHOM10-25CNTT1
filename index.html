@@ -5,136 +5,132 @@
 <title>NHÓM 25CNTT1</title>
 <style>
 body{
-    font-family: Arial, sans-serif;
-    background:#f2f2f2;
-    margin:40px;
+    font-family:Arial;
+    background:#111;
+    color:#eee;
+    margin:40px
 }
-h1{text-align:center;color:#2c3e50}
-h2{color:#2980b9}
+h1{text-align:center;color:#00eaff}
+h2{color:#00c3ff}
 .box{
-    background:white;
+    background:#1e1e1e;
     padding:20px;
     margin-bottom:30px;
-    border-radius:10px;
-    box-shadow:0 4px 10px rgba(0,0,0,0.1)
+    border-radius:12px;
+    box-shadow:0 0 15px rgba(0,255,255,.15)
 }
-table{
-    width:100%;
-    border-collapse:collapse;
-    text-align:center
-}
-th,td{
-    border:1px solid #ccc;
-    padding:8px
-}
-th{background:#3498db;color:white}
 button{
     padding:8px 15px;
-    background:#3498db;
-    color:white;
     border:none;
-    border-radius:5px;
-    cursor:pointer
+    border-radius:8px;
+    background:#00c3ff;
+    color:#000;
+    cursor:pointer;
+    margin-right:5px
 }
-button:hover{background:#2980b9}
-textarea{width:100%;height:100px}
-iframe,img{border-radius:10px;margin:10px 0}
+button:hover{background:#00eaff}
+textarea{
+    width:100%;
+    height:90px;
+    border-radius:8px;
+    padding:10px
+}
 .comment{
-    background:#ecf0f1;
+    background:#2a2a2a;
     padding:10px;
     margin-top:10px;
-    border-radius:5px
+    border-radius:8px;
+    position:relative
 }
+.comment button{
+    position:absolute;
+    top:8px;
+    right:8px;
+    background:#ff4d4d;
+    color:white
+}
+audio{width:100%;margin-top:10px}
 </style>
 </head>
 
 <body>
 
-<h1>TRANG NHÓM LỚP 25CNTT1</h1>
+<h1>TRANG NHÓM 25CNTT1</h1>
 
 <div class="box">
-<h2>Thông tin chung</h2>
-<p><b>Khoa:</b> Toán – Tin</p>
-<p><b>Ngành:</b> Công nghệ thông tin</p>
+<h2>🎵 Music Player</h2>
+<p id="songName">Chưa phát bài nào</p>
+<audio id="player" controls></audio><br><br>
+<button onclick="playRandom()">▶ Random bài</button>
+<button onclick="togglePlay()">⏯ Play / Pause</button>
 </div>
 
 <div class="box">
-<h2>Thành viên nhóm</h2>
-<ul>
-<li>Đặng Đức Đại</li>
-<li>Hoàng Bảo Nhân</li>
-<li>Nguyễn Minh Hoàng</li>
-<li>Nguyễn Văn Khánh</li>
-<li>Nguyễn Trọng Anh Khoa</li>
-</ul>
-</div>
-
-<div class="box">
-<h2>Thời khóa biểu</h2>
-<table>
-<tr>
-<th>Tiết</th><th>Thứ 2</th><th>Thứ 3</th><th>Thứ 4</th><th>Thứ 5</th><th>Thứ 6</th>
-</tr>
-<tr>
-<td>1–3</td>
-<td>Java<br>B3-502</td>
-<td>Pháp luật<br>A5-404C</td>
-<td>CTDL & GT<br>B3-202</td>
-<td></td>
-<td>Toán rời rạc<br>B3-302</td>
-</tr>
-<tr>
-<td>7–9</td>
-<td>CTDL & GT<br>B1.106</td>
-<td>KTMT<br>B3-102</td>
-<td>Toán rời rạc<br>B3-401</td>
-<td>CN số CB<br>A5-404B</td>
-<td>GDTC 2<br>SVD-11</td>
-</tr>
-</table>
-</div>
-
-<div class="box">
-<h2>Âm nhạc yêu thích</h2>
-<iframe width="300" height="200" src="https://www.youtube.com/embed/GgQFO8dL5XQ"></iframe>
-<iframe width="300" height="200" src="https://www.youtube.com/embed/Zzn9-ATB9aU"></iframe>
-</div>
-
-<div class="box">
-<h2>Hình ảnh hoạt động</h2>
-<img src="https://static.vinwonders.com/2022/05/Tata-Show-11.jpg" width="300">
-<img src="https://thanhnien.mediacdn.vn/Uploaded/hongky-qc/2022_06_21/h3-8367.jpg" width="300">
-</div>
-
-<div class="box">
-<h2>Nhận xét & góp ý</h2>
-<textarea id="commentInput" placeholder="Nhập nhận xét của bạn..."></textarea><br><br>
-<button onclick="saveComment()">Gửi nhận xét</button>
-<button onclick="clearComment()" style="background:#e74c3c">Xóa</button>
-
-<div id="commentBox"></div>
+<h2>💬 Nhận xét & góp ý</h2>
+<textarea id="commentInput" placeholder="Viết nhận xét cho nhóm..."></textarea><br><br>
+<button onclick="addComment()">Gửi</button>
+<div id="comments"></div>
 </div>
 
 <script>
-function saveComment(){
-    let text=document.getElementById("commentInput").value;
-    if(text==="") return;
-    localStorage.setItem("groupComment",text);
-    showComment();
+// ===== MUSIC =====
+const songs=[
+"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
+"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3",
+"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3",
+"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3",
+"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3",
+"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-6.mp3",
+"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-7.mp3",
+"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3",
+"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-9.mp3",
+"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-10.mp3"
+];
+
+const player=document.getElementById("player");
+const songName=document.getElementById("songName");
+
+function playRandom(){
+    let i=Math.floor(Math.random()*songs.length);
+    player.src=songs[i];
+    songName.innerText="Đang phát: Song "+(i+1);
+    player.play();
 }
-function showComment(){
-    let saved=localStorage.getItem("groupComment");
-    if(saved){
-        document.getElementById("commentBox").innerHTML=
-        '<div class="comment"><b>Nhận xét:</b><br>'+saved+'</div>';
-    }
+function togglePlay(){
+    if(player.paused) player.play();
+    else player.pause();
 }
-function clearComment(){
-    localStorage.removeItem("groupComment");
-    document.getElementById("commentBox").innerHTML="";
+
+// ===== COMMENTS =====
+let comments=JSON.parse(localStorage.getItem("comments")||"[]");
+
+function render(){
+    const box=document.getElementById("comments");
+    box.innerHTML="";
+    comments.forEach((c,i)=>{
+        box.innerHTML+=`
+        <div class="comment">
+            ${c}
+            <button onclick="removeComment(${i})">X</button>
+        </div>`;
+    });
+    localStorage.setItem("comments",JSON.stringify(comments));
+}
+
+function addComment(){
+    let text=document.getElementById("commentInput").value.trim();
+    if(!text) return;
+    comments.push(text);
     document.getElementById("commentInput").value="";
+    render();
 }
-showComment();
+
+function removeComment(i){
+    comments.splice(i,1);
+    render();
+}
+
+render();
 </script>
 
 </body>
