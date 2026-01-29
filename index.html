@@ -2,134 +2,195 @@
 <html lang="vi">
 <head>
 <meta charset="UTF-8">
-<title>NHÓM 25CNTT1</title>
+<title>NHÓM 10 – 25CNTT1</title>
 <style>
 body{
-    font-family:Arial;
-    background:#111;
-    color:#eee;
-    margin:40px
+    font-family: Arial, sans-serif;
+    background: linear-gradient(120deg,#74ebd5,#9face6);
+    margin:0;
+    padding:30px;
 }
-h1{text-align:center;color:#00eaff}
-h2{color:#00c3ff}
+h1{text-align:center;color:#2c3e50}
 .box{
-    background:#1e1e1e;
+    background:#fff;
     padding:20px;
-    margin-bottom:30px;
+    margin:25px auto;
+    max-width:1000px;
     border-radius:12px;
-    box-shadow:0 0 15px rgba(0,255,255,.15)
+    box-shadow:0 8px 20px rgba(0,0,0,.15);
 }
 button{
-    padding:8px 15px;
+    padding:10px 18px;
     border:none;
-    border-radius:8px;
-    background:#00c3ff;
-    color:#000;
+    border-radius:6px;
+    background:#3498db;
+    color:#fff;
     cursor:pointer;
-    margin-right:5px
+    font-size:15px;
 }
-button:hover{background:#00eaff}
-textarea{
+button:hover{background:#2980b9}
+table{
     width:100%;
-    height:90px;
-    border-radius:8px;
-    padding:10px
+    border-collapse:collapse;
+    text-align:center;
+}
+th,td{border:1px solid #ccc;padding:8px}
+th{background:#3498db;color:#fff}
+textarea,input{
+    width:100%;
+    padding:8px;
+    margin-top:6px;
 }
 .comment{
-    background:#2a2a2a;
+    background:#f1f1f1;
     padding:10px;
-    margin-top:10px;
-    border-radius:8px;
-    position:relative
+    border-radius:6px;
+    margin-top:8px;
 }
 .comment button{
-    position:absolute;
-    top:8px;
-    right:8px;
-    background:#ff4d4d;
-    color:white
+    background:#e74c3c;
+    margin-top:5px;
 }
-audio{width:100%;margin-top:10px}
+iframe{border-radius:10px}
 </style>
 </head>
 
 <body>
 
-<h1>TRANG NHÓM 25CNTT1</h1>
+<h1>🌟 NHÓM 10 – LỚP 25CNTT1 🌟</h1>
 
 <div class="box">
-<h2>🎵 Music Player</h2>
-<p id="songName">Chưa phát bài nào</p>
-<audio id="player" controls></audio><br><br>
-<button onclick="playRandom()">▶ Random bài</button>
-<button onclick="togglePlay()">⏯ Play / Pause</button>
+<h2>📌 Thông tin nhóm</h2>
+<p><b>Khoa:</b> Toán – Tin</p>
+<p><b>Ngành:</b> Công nghệ thông tin</p>
+<ul>
+<li>Đặng Đức Đại</li>
+<li>Hoàng Bảo Nhân</li>
+<li>Nguyễn Minh Hoàng</li>
+<li>Nguyễn Văn Khánh</li>
+<li>Nguyễn Trọng Anh Khoa</li>
+</ul>
 </div>
 
 <div class="box">
-<h2>💬 Nhận xét & góp ý</h2>
-<textarea id="commentInput" placeholder="Viết nhận xét cho nhóm..."></textarea><br><br>
+<h2>📅 Thời khóa biểu</h2>
+<table>
+<tr>
+<th>Tiết</th><th>T2</th><th>T3</th><th>T4</th><th>T5</th><th>T6</th>
+</tr>
+<tr>
+<td>1–3</td>
+<td>Java</td>
+<td>Pháp luật</td>
+<td>CTDL & GT</td>
+<td></td>
+<td>Toán rời rạc</td>
+</tr>
+<tr>
+<td>7–9</td>
+<td>CTDL</td>
+<td>KTM</td>
+<td>Toán rời rạc</td>
+<td>CNS</td>
+<td>GDTC</td>
+</tr>
+</table>
+</div>
+
+<div class="box">
+<h2>🎵 NHẠC YÊU THÍCH (Random 50 bài)</h2>
+<p id="songTitle"><i>Chưa phát bài nào</i></p>
+<iframe id="player" width="100%" height="315"
+allow="autoplay; encrypted-media" allowfullscreen></iframe>
+<br><br>
+<button onclick="playRandom()">🔀 Random bài</button>
+</div>
+
+<div class="box">
+<h2>🎬 Video nổi bật</h2>
+<iframe width="100%" height="315"
+src="https://www.youtube.com/embed/GgQFO8dL5XQ"
+allowfullscreen></iframe>
+</div>
+
+<div class="box">
+<h2>💬 Bình luận</h2>
+<input id="name" placeholder="Tên của bạn">
+<textarea id="msg" placeholder="Nhận xét..."></textarea>
+<br><br>
 <button onclick="addComment()">Gửi</button>
+<button onclick="clearAll()" style="background:#e67e22">Xoá tất cả</button>
 <div id="comments"></div>
 </div>
 
 <script>
-// ===== MUSIC =====
+/* ===== PLAYLIST 50 BÀI ===== */
 const songs=[
-"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
-"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3",
-"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3",
-"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3",
-"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3",
-"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-6.mp3",
-"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-7.mp3",
-"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3",
-"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-9.mp3",
-"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-10.mp3"
+["ROSÉ & Bruno Mars - APT.","ekr2nIex040"],
+["Taylor Swift - Ophelia","VIDEO2"],
+["Reneé Rapp - Leave Me Alone","VIDEO3"],
+["Lady Gaga & Bruno Mars - Die With A Smile","VIDEO4"],
+["Madison Beer - bad enough","VIDEO5"],
+["Billie Eilish - BIRDS OF A FEATHER","VIDEO6"],
+["Benson Boone - Beautiful Things","VIDEO7"],
+["Alex Warren - Ordinary","VIDEO8"],
+["JISOO X ZAYN - EYES CLOSED","VIDEO9"],
+["Sabrina Carpenter - Espresso","VIDEO11"],
+["Miley Cyrus - Flowers","VIDEO14"],
+["Ed Sheeran - Sapphire","VIDEO16"],
+["David Kushner - Daylight","VIDEO17"],
+["yung kai - blue","VIDEO18"],
+["Teddy Swims - The Door","VIDEO19"],
+["Ariana Grande - we can't be friends","VIDEO25"],
+["Lady Gaga - Abracadabra","VIDEO31"],
+["Billie Eilish - CHIHIRO","VIDEO32"],
+["Tyla - Water","VIDEO33"],
+["Kendrick Lamar - Not Like Us","VIDEO37"],
+["SZA - Snooze","VIDEO49"],
+["Doja Cat - Paint The Town Red","VIDEO50"]
 ];
 
-const player=document.getElementById("player");
-const songName=document.getElementById("songName");
-
+/* random */
 function playRandom(){
-    let i=Math.floor(Math.random()*songs.length);
-    player.src=songs[i];
-    songName.innerText="Đang phát: Song "+(i+1);
-    player.play();
-}
-function togglePlay(){
-    if(player.paused) player.play();
-    else player.pause();
+ let i=Math.floor(Math.random()*songs.length);
+ document.getElementById("songTitle").innerText="🎧 "+songs[i][0];
+ document.getElementById("player").src=
+ "https://www.youtube.com/embed/"+songs[i][1]+"?autoplay=1";
 }
 
-// ===== COMMENTS =====
-let comments=JSON.parse(localStorage.getItem("comments")||"[]");
+/* ===== COMMENT LOCAL STORAGE ===== */
+let data=JSON.parse(localStorage.getItem("cmt")||"[]");
 
 function render(){
-    const box=document.getElementById("comments");
-    box.innerHTML="";
-    comments.forEach((c,i)=>{
-        box.innerHTML+=`
-        <div class="comment">
-            ${c}
-            <button onclick="removeComment(${i})">X</button>
-        </div>`;
-    });
-    localStorage.setItem("comments",JSON.stringify(comments));
+ let box=document.getElementById("comments");
+ box.innerHTML="";
+ data.forEach((c,i)=>{
+  box.innerHTML+=`
+  <div class="comment">
+  <b>${c.name}</b><br>${c.msg}
+  <br><button onclick="del(${i})">Xoá</button>
+  </div>`;
+ });
+ localStorage.setItem("cmt",JSON.stringify(data));
 }
-
 function addComment(){
-    let text=document.getElementById("commentInput").value.trim();
-    if(!text) return;
-    comments.push(text);
-    document.getElementById("commentInput").value="";
-    render();
+ let n=name.value.trim();
+ let m=msg.value.trim();
+ if(!n||!m) return alert("Nhập đầy đủ!");
+ data.push({name:n,msg:m});
+ msg.value="";
+ render();
 }
-
-function removeComment(i){
-    comments.splice(i,1);
-    render();
+function del(i){
+ data.splice(i,1);
+ render();
 }
-
+function clearAll(){
+ if(confirm("Xoá hết comment?")){
+ data=[];
+ render();
+ }
+}
 render();
 </script>
 
