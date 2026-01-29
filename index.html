@@ -1,14 +1,32 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>NHÓM 10 – 25CNTT1</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<h1>TRANG NHÓM 25CNTT1</h1>
+
 <div class="box">
-  <h2>🎶 Nhạc yêu thích</h2>
-
+  <h2>🎶 Nghe nhạc</h2>
   <p id="nowPlaying">Chưa phát bài nào</p>
-
-  <audio id="audio" controls></audio>
-
-  <br><br>
+  <audio id="audio" controls></audio><br><br>
   <button onclick="prevSong()">⏮</button>
   <button onclick="playRandom()">🔀 Random</button>
   <button onclick="nextSong()">⏭</button>
 </div>
 
+<div class="box">
+  <h2>💬 Bình luận</h2>
+  <textarea id="comment"></textarea><br>
+  <button onclick="saveComment()">Gửi</button>
+  <button onclick="clearComment()">Xóa</button>
+  <p id="showComment"></p>
+</div>
+
 <script src="script.js"></script>
+</body>
+</html>
